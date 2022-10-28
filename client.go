@@ -2,6 +2,7 @@ package settingsv1
 
 import (
 	"context"
+	"errors"
 	apic "github.com/antinvestor/apis"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
@@ -150,7 +151,7 @@ func (nc *SettingsClient) ListByObject(ctx context.Context,
 	for {
 		setting, err := settingStream.Recv()
 		if err != nil {
-			if err == io.EOF {
+			if errors.Is(err, io.EOF) {
 				break
 			}
 			return settings, err
