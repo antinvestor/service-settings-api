@@ -87,11 +87,15 @@ func (m *Setting) Validate() error {
 
 	}
 
-	if utf8.RuneCountInString(m.GetModule()) < 3 {
-		return SettingValidationError{
-			field:  "Module",
-			reason: "value length must be at least 3 runes",
+	if m.GetModule() != "" {
+
+		if utf8.RuneCountInString(m.GetModule()) < 3 {
+			return SettingValidationError{
+				field:  "Module",
+				reason: "value length must be at least 3 runes",
+			}
 		}
+
 	}
 
 	return nil

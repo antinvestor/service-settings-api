@@ -35,7 +35,7 @@ func NewSettingsServiceClient(cc grpc.ClientConnInterface) SettingsServiceClient
 
 func (c *settingsServiceClient) Get(ctx context.Context, in *SettingRequest, opts ...grpc.CallOption) (*SettingResponse, error) {
 	out := new(SettingResponse)
-	err := c.cc.Invoke(ctx, "/apis.SettingsService/GetByAll", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/apis.SettingsService/Get", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -100,7 +100,7 @@ type UnimplementedSettingsServiceServer struct {
 }
 
 func (UnimplementedSettingsServiceServer) Get(context.Context, *SettingRequest) (*SettingResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetByAll not implemented")
+	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
 }
 func (UnimplementedSettingsServiceServer) List(*SettingRequest, SettingsService_ListServer) error {
 	return status.Errorf(codes.Unimplemented, "method List not implemented")
@@ -131,7 +131,7 @@ func _SettingsService_Get_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/apis.SettingsService/GetByAll",
+		FullMethod: "/apis.SettingsService/Get",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SettingsServiceServer).Get(ctx, req.(*SettingRequest))
@@ -186,7 +186,7 @@ var SettingsService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*SettingsServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetByAll",
+			MethodName: "Get",
 			Handler:    _SettingsService_Get_Handler,
 		},
 		{
